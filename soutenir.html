@@ -86,13 +86,22 @@
     <div class="scroll-top" id="scrollTopBtn"><i class="fas fa-arrow-up"></i></div>
 
     <script>
+        // ---------- Helper to get campaign URL ----------
+        function getCampaignUrl() {
+            // Always use the absolute Netlify URL for consistency
+            return 'https://rdge-campain.netlify.app/';
+        }
+
+        function getShareText() {
+            return "Je soutiens Josué & Lucien pour le RDGE à l'UCB ! Découvrez leur projet : « On t'écoute. On s'unit. On agit. »";
+        }
+
         // ---------- QR Code Generation ----------
         function generateQRCode() {
             const container = document.getElementById('qrcode-container');
             if (!container) return;
             container.innerHTML = ''; 
-            const currentUrl = window.location.href.replace('soutenir.html', 'index.html'); // point to landing page
-            let qrUrl = currentUrl;
+            const qrUrl = getCampaignUrl();
             try {
                 var qr = qrcode(0, 'M');
                 qr.addData(qrUrl);
@@ -113,6 +122,7 @@
                 canvas.id = 'qrCanvas';
                 container.appendChild(canvas);
             } catch(e) {
+                console.error("QR generation failed", e);
                 container.innerHTML = '<div style="background:#fff; padding:1rem; border-radius:12px;">🔲 QR disponible en ligne</div>';
             }
         }
@@ -131,63 +141,87 @@
         }
 
         // ---------- Share functionality ----------
-        function getShareUrl() {
-            return window.location.href.replace('soutenir.html', 'index.html');
+        function setupShareLinks() {
+            const campaignUrl = getCampaignUrl();
+            const shareText = getShareText();
+            
+            const whatsappBtn = document.getElementById('shareWhatsApp');
+            const twitterBtn = document.getElementById('shareTwitter');
+            const facebookBtn = document.getElementById('shareFacebook');
+            const linkedinBtn = document.getElementById('shareLinkedin');
+            
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + campaignUrl)}`, '_blank');
+                });
+            }
+            
+            if (twitterBtn) {
+                twitterBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(campaignUrl)}`, '_blank');
+                });
+            }
+            
+            if (facebookBtn) {
+                facebookBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(campaignUrl)}`, '_blank');
+                });
+            }
+            
+            if (linkedinBtn) {
+                linkedinBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(campaignUrl)}&title=${encodeURIComponent("RDGE UCB - Josué & Lucien")}&summary=${encodeURIComponent(shareText)}`, '_blank');
+                });
+            }
         }
 
-        function getShareText() {
-            return "Je soutiens Josué & Lucien pour le RDGE à l'UCB ! Découvrez leur projet : « On t'écoute. On s'unit. On agit. »";
+        // Copy link functionality
+        function setupCopyLink() {
+            const urlInput = document.getElementById('pageUrl');
+            if (urlInput) {
+                urlInput.value = getCampaignUrl();
+            }
+            const copyBtn = document.getElementById('copyBtn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', () => {
+                    if (urlInput) {
+                        urlInput.select();
+                        document.execCommand('copy');
+                        alert('Lien copié dans le presse-papier !');
+                    }
+                });
+            }
         }
 
-        document.getElementById('shareWhatsApp')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const url = getShareUrl();
-            window.open(`https://wa.me/?text=${encodeURIComponent(getShareText() + ' ' + url)}`, '_blank');
-        });
-        document.getElementById('shareTwitter')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const url = getShareUrl();
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}&url=${encodeURIComponent(url)}`, '_blank');
-        });
-        document.getElementById('shareFacebook')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const url = getShareUrl();
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-        });
-        document.getElementById('shareLinkedin')?.addEventListener('click', (e) => {
-            e.preventDefault();
-            const url = getShareUrl();
-            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent("RDGE UCB - Josué & Lucien")}&summary=${encodeURIComponent(getShareText())}`, '_blank');
-        });
-
-        // Copy link
-        const urlInput = document.getElementById('pageUrl');
-        if (urlInput) {
-            urlInput.value = getShareUrl();
+        // Scroll to top button
+        function setupScrollTop() {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollBtn.style.opacity = '1';
+                } else {
+                    scrollBtn.style.opacity = '0';
+                }
+            });
+            scrollBtn?.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         }
-        document.getElementById('copyBtn')?.addEventListener('click', () => {
-            urlInput.select();
-            document.execCommand('copy');
-            alert('Lien copié dans le presse-papier !');
+
+        // Initialize everything when the page loads
+        window.addEventListener('load', () => {
+            generateQRCode();
+            setupShareLinks();
+            setupCopyLink();
+            setupScrollTop();
         });
 
         // Download button
         document.getElementById('downloadQRBtn')?.addEventListener('click', downloadQR);
-
-        // Generate QR on load
-        window.addEventListener('load', () => {
-            generateQRCode();
-        });
-
-        // scroll top button (from common.js but duplicated for safety)
-        const scrollBtn = document.getElementById('scrollTopBtn');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) scrollBtn.style.opacity = '1';
-            else scrollBtn.style.opacity = '0';
-        });
-        scrollBtn?.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
     </script>
     <script src="js/common.js"></script>
 </body>
