@@ -1,0 +1,116 @@
+/* Calendrier page specific styles */
+
+.page-header-calendar {
+    background: linear-gradient(135deg, #eef2ff 0%, #ffffff 100%);
+    padding: 3rem 0 2rem;
+    text-align: center;
+    border-bottom: 1px solid #e0e7ff;
+}
+.page-header-calendar h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+.page-header-calendar .highlight {
+    color: #c2410c;
+}
+.page-header-calendar p {
+    font-size: 1.2rem;
+    color: #2d4a6e;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.timeline-section {
+    padding: 4rem 0;
+    background: #f9fafc;
+}
+.timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.month-card {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: transform 0.25s, box-shadow 0.25s;
+    border-left: 6px solid #c2410c;
+    position: relative;
+    overflow: hidden;
+}
+.month-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px -12px rgba(0,0,0,0.12);
+}
+.month-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: rgba(194, 65, 12, 0.12);
+    line-height: 1;
+}
+.month-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #1e3c72;
+}
+.month-card h3 i {
+    color: #c2410c;
+    font-size: 1.3rem;
+}
+.month-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.month-card li {
+    margin-bottom: 0.6rem;
+    padding-left: 1.3rem;
+    position: relative;
+    font-size: 0.95rem;
+    color: #2d3e5f;
+}
+.month-card li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: #c2410c;
+    font-size: 0.9rem;
+}
+
+.note-baseline {
+    background: #fef3e8;
+    border-radius: 1.5rem;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    color: #1e3c72;
+    margin-top: 2rem;
+    border: 1px solid #ffe4cc;
+}
+.note-baseline i {
+    color: #c2410c;
+    margin-right: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timeline-grid {
+        grid-template-columns: 1fr;
+    }
+    .page-header-calendar h1 {
+        font-size: 1.8rem;
+    }
+    .month-card h3 {
+        font-size: 1.1rem;
+        flex-wrap: wrap;
+    }
+}

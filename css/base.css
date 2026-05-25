@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f9fafc;
+    color: #1e293b;
+    line-height: 1.5;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Navbar */
+.navbar {
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #eef2f6;
+}
+.nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+}
+.logo {
+    font-weight: 800;
+    font-size: 1.35rem;
+    background: linear-gradient(135deg, #1e3c72, #2b4f8c);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+.logo span { color: #c2410c; background: none; }
+.nav-links {
+    display: flex;
+    gap: 1.8rem;
+    font-weight: 500;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #2c3e66;
+    transition: 0.2s;
+    font-size: 0.95rem;
+}
+.nav-links a:hover, .nav-links a.active { color: #c2410c; }
+.btn-vote-nav {
+    background: #c2410c;
+    padding: 0.5rem 1.3rem;
+    border-radius: 40px;
+    color: white !important;
+    font-weight: 600;
+}
+.btn-vote-nav:hover { background: #9b2f06; transform: scale(0.98); }
+
+/* Buttons */
+.btn-primary, .btn-outline {
+    padding: 0.8rem 1.8rem;
+    border-radius: 40px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.2s;
+}
+.btn-primary {
+    background: #c2410c;
+    color: white;
+    border: none;
+}
+.btn-outline {
+    background: transparent;
+    border: 2px solid #c2410c;
+    color: #c2410c;
+}
+.btn-primary:hover { background: #9b2f06; transform: scale(0.98); }
+.btn-outline:hover { background: #c2410c10; }
+
+/* Footer */
+footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: 3rem;
+}
+.scroll-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1rem;
+    background: #c2410c;
+    color: white;
+    border-radius: 2rem;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: 0.2s;
+    z-index: 99;
+}
+@media (max-width: 760px) {
+    .nav-inner { flex-direction: column; gap: 0.8rem; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+}

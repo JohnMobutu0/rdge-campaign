@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soutenir · Josué & Lucien · RDGE UCB</title>
+    <meta name="description" content="Partagez et soutenez la candidature de Josué et Lucien. Téléchargez le QR code, partagez sur les réseaux, et faites entendre votre voix.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/soutenir.css">
+    <!-- QR Code library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <div class="logo">RDGE<span>·UCB</span></div>
+            <div class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="programme.html">Programme</a>
+                <a href="calendrier.html">Calendrier</a>
+                <a href="equipe.html">Équipe</a>
+                <a href="soutenir.html" class="active btn-vote-nav">Soutenir</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="support-hero">
+            <div class="container">
+                <h1> Faites entendre <span class="highlight">votre voix</span></h1>
+                <p>Partagez cette campagne autour de vous. Chaque soutien compte pour construire une université plus juste et dynamique.</p>
+            </div>
+        </section>
+
+        <section class="qr-section">
+            <div class="container qr-container">
+                <div class="qr-card">
+                    <h2><i class="fas fa-qrcode"></i> Scannez et partagez</h2>
+                    <div class="qr-code-wrapper" id="qrcode-container">
+                        <!-- QR code will be injected here -->
+                    </div>
+                    <p class="qr-info">Ce QR code mène directement à notre campagne. Prenez une photo, imprimez‑le ou partagez‑le en un clic.</p>
+                    <button id="downloadQRBtn" class="btn-secondary"><i class="fas fa-download"></i> Télécharger le QR code</button>
+                </div>
+
+                <div class="share-card">
+                    <h2><i class="fas fa-share-alt"></i> Relayer la campagne</h2>
+                    <div class="share-buttons">
+                        <a href="#" id="shareWhatsApp" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="#" id="shareTwitter" class="share-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
+                        <a href="#" id="shareFacebook" class="share-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                        <a href="#" id="shareLinkedin" class="share-btn linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    </div>
+                    <div class="copy-link">
+                        <p><i class="fas fa-link"></i> Lien direct :</p>
+                        <div class="copy-field">
+                            <input type="text" id="pageUrl" readonly value="">
+                            <button id="copyBtn"><i class="fas fa-copy"></i> Copier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="call-vote">
+            <div class="container">
+                <div class="vote-box">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Prêt à faire bouger les choses ?</h3>
+                    <p>Votez pour Josué & Lucien – RDGE / RDGEA 2025-2026. Ensemble, remettons l’étudiant au cœur des décisions.</p>
+                    <div class="vote-emoji"> <strong>Josué & Lucien</strong></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p><i class="fas fa-university"></i> Université Catholique de Bukavu · Année académique 2025-2026</p>
+            <p>« On t'écoute. On s'unit. On agit. » — Ta confiance change l’université.</p>
+        </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTopBtn"><i class="fas fa-arrow-up"></i></div>
+
+    <script>
+        // ---------- QR Code Generation ----------
+        function generateQRCode() {
+            const container = document.getElementById('qrcode-container');
+            if (!container) return;
+            container.innerHTML = ''; 
+            const currentUrl = window.location.href.replace('soutenir.html', 'index.html'); // point to landing page
+            let qrUrl = currentUrl;
+            try {
+                var qr = qrcode(0, 'M');
+                qr.addData(qrUrl);
+                qr.make();
+                var size = qr.getModuleCount() * 4;
+                var canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                var ctx = canvas.getContext('2d');
+                for (var row = 0; row < qr.getModuleCount(); row++) {
+                    for (var col = 0; col < qr.getModuleCount(); col++) {
+                        ctx.fillStyle = qr.isDark(row, col) ? '#000000' : '#ffffff';
+                        ctx.fillRect(col * 4, row * 4, 4, 4);
+                    }
+                }
+                canvas.style.width = '180px';
+                canvas.style.height = '180px';
+                canvas.id = 'qrCanvas';
+                container.appendChild(canvas);
+            } catch(e) {
+                container.innerHTML = '<div style="background:#fff; padding:1rem; border-radius:12px;">🔲 QR disponible en ligne</div>';
+            }
+        }
+
+        // Download QR as PNG
+        function downloadQR() {
+            const canvas = document.getElementById('qrCanvas');
+            if (!canvas) {
+                alert("Générez d'abord le QR code.");
+                return;
+            }
+            const link = document.createElement('a');
+            link.download = 'qr_rdge_josue_lucien.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // ---------- Share functionality ----------
+        function getShareUrl() {
+            return window.location.href.replace('soutenir.html', 'index.html');
+        }
+
+        function getShareText() {
+            return "Je soutiens Josué & Lucien pour le RDGE à l'UCB ! Découvrez leur projet : « On t'écoute. On s'unit. On agit. »";
+        }
+
+        document.getElementById('shareWhatsApp')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = getShareUrl();
+            window.open(`https://wa.me/?text=${encodeURIComponent(getShareText() + ' ' + url)}`, '_blank');
+        });
+        document.getElementById('shareTwitter')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = getShareUrl();
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(getShareText())}&url=${encodeURIComponent(url)}`, '_blank');
+        });
+        document.getElementById('shareFacebook')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = getShareUrl();
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        });
+        document.getElementById('shareLinkedin')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = getShareUrl();
+            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent("RDGE UCB - Josué & Lucien")}&summary=${encodeURIComponent(getShareText())}`, '_blank');
+        });
+
+        // Copy link
+        const urlInput = document.getElementById('pageUrl');
+        if (urlInput) {
+            urlInput.value = getShareUrl();
+        }
+        document.getElementById('copyBtn')?.addEventListener('click', () => {
+            urlInput.select();
+            document.execCommand('copy');
+            alert('Lien copié dans le presse-papier !');
+        });
+
+        // Download button
+        document.getElementById('downloadQRBtn')?.addEventListener('click', downloadQR);
+
+        // Generate QR on load
+        window.addEventListener('load', () => {
+            generateQRCode();
+        });
+
+        // scroll top button (from common.js but duplicated for safety)
+        const scrollBtn = document.getElementById('scrollTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) scrollBtn.style.opacity = '1';
+            else scrollBtn.style.opacity = '0';
+        });
+        scrollBtn?.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+    <script src="js/common.js"></script>
+</body>
+</html>

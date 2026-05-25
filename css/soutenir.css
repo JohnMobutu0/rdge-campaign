@@ -1,0 +1,180 @@
+/* Support page specific styles */
+
+.support-hero {
+    background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+    padding: 3rem 0 2rem;
+    text-align: center;
+    border-bottom: 1px solid #d9f0ff;
+}
+.support-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+.support-hero .highlight {
+    color: #c2410c;
+}
+.support-hero p {
+    font-size: 1.2rem;
+    color: #2d4a6e;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.qr-section {
+    padding: 4rem 0;
+    background: #f9fafc;
+}
+.qr-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: center;
+}
+.qr-card, .share-card {
+    background: white;
+    border-radius: 2rem;
+    padding: 2rem;
+    flex: 1;
+    min-width: 280px;
+    box-shadow: 0 12px 24px -12px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.qr-card h2, .share-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.qr-code-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+.qr-info {
+    font-size: 0.9rem;
+    color: #4a5b7a;
+    margin: 1rem 0;
+}
+.btn-secondary {
+    background: #1e3c72;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.btn-secondary:hover {
+    background: #0f2b4f;
+    transform: scale(0.98);
+}
+
+.share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+.share-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.2s;
+}
+.whatsapp { background: #25D366; }
+.twitter { background: #1DA1F2; }
+.facebook { background: #1877F2; }
+.linkedin { background: #0077b5; }
+.share-btn:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+}
+
+.copy-link {
+    margin-top: 1.5rem;
+    text-align: left;
+}
+.copy-link p {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.copy-field {
+    display: flex;
+    gap: 0.5rem;
+}
+.copy-field input {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    background: #f8fafc;
+}
+.copy-field button {
+    background: #c2410c;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 40px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+.copy-field button:hover {
+    background: #9b2f06;
+}
+
+.call-vote {
+    padding: 3rem 0 5rem;
+}
+.vote-box {
+    background: linear-gradient(145deg, #1e3c72, #112a44);
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+}
+.vote-box i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.vote-box h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+}
+.vote-box p {
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+}
+.vote-emoji {
+    font-size: 1.2rem;
+    background: rgba(255,255,255,0.2);
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 40px;
+}
+
+@media (max-width: 768px) {
+    .support-hero h1 {
+        font-size: 1.8rem;
+    }
+    .qr-card, .share-card {
+        padding: 1.5rem;
+    }
+    .share-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .share-btn {
+        justify-content: center;
+    }
+}
